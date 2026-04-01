@@ -75,7 +75,7 @@ const FLOWERS = [
     id: "rose", basePrice: 45,
     name: { en: "Garden Roses", vi: "Hoa Hồng Vườn" },
     description: { en: "Timeless romance, lush petals", vi: "Lãng mạn vượt thời gian, cánh hoa mượt mà" },
-    image: "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=500&h=500&fit=crop",
+    emoji: "🌹",
     colors: [
       { en: "Blush Pink", vi: "Hồng Phấn", hex: "#E8B4B8" }, { en: "Ivory White", vi: "Trắng Ngà", hex: "#F5F0E8" },
       { en: "Deep Red", vi: "Đỏ Đậm", hex: "#8B2035" }, { en: "Dusty Mauve", vi: "Tím Nhạt", hex: "#C4A0A5" },
@@ -86,7 +86,7 @@ const FLOWERS = [
     id: "peony", basePrice: 55,
     name: { en: "Peonies", vi: "Hoa Mẫu Đơn" },
     description: { en: "Full, romantic blooms", vi: "Nở rộ, lãng mạn" },
-    image: "https://images.unsplash.com/photo-1498998754966-9f72acbc85b2?w=500&h=500&fit=crop",
+    emoji: "🌸",
     colors: [
       { en: "Soft Pink", vi: "Hồng Nhạt", hex: "#F4C2C2" }, { en: "Cream", vi: "Kem", hex: "#FFFDD0" },
       { en: "Coral", vi: "San Hô", hex: "#FF7F7F" }, { en: "White", vi: "Trắng", hex: "#FEFEFA" },
@@ -97,7 +97,7 @@ const FLOWERS = [
     id: "dahlia", basePrice: 50,
     name: { en: "Dahlias", vi: "Hoa Thược Dược" },
     description: { en: "Bold geometry, striking presence", vi: "Hình dáng táo bạo, nổi bật" },
-    image: "https://images.unsplash.com/photo-1536091479766-e933e5e5e3b7?w=500&h=500&fit=crop",
+    emoji: "🌼",
     colors: [
       { en: "Burgundy", vi: "Đỏ Rượu", hex: "#6B2037" }, { en: "Sunset Orange", vi: "Cam Hoàng Hôn", hex: "#E8734A" },
       { en: "Lavender", vi: "Oải Hương", hex: "#B4A7D6" }, { en: "White", vi: "Trắng", hex: "#FEFEFA" },
@@ -108,7 +108,7 @@ const FLOWERS = [
     id: "ranunculus", basePrice: 48,
     name: { en: "Ranunculus", vi: "Hoa Mao Lương" },
     description: { en: "Paper-thin layers, pure elegance", vi: "Cánh mỏng như giấy, tinh tế" },
-    image: "https://images.unsplash.com/photo-1457089328109-e5d9bd499191?w=500&h=500&fit=crop",
+    emoji: "🏵️",
     colors: [
       { en: "White", vi: "Trắng", hex: "#FEFEFA" }, { en: "Pale Yellow", vi: "Vàng Nhạt", hex: "#FFF8DC" },
       { en: "Pink", vi: "Hồng", hex: "#FFB6C1" }, { en: "Orange", vi: "Cam", hex: "#FFB347" },
@@ -119,7 +119,7 @@ const FLOWERS = [
     id: "tulip", basePrice: 38,
     name: { en: "Tulips", vi: "Hoa Tulip" },
     description: { en: "Clean lines, modern charm", vi: "Thanh lịch, hiện đại" },
-    image: "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=500&h=500&fit=crop",
+    emoji: "🌷",
     colors: [
       { en: "Purple", vi: "Tím", hex: "#7B5EA7" }, { en: "White", vi: "Trắng", hex: "#FEFEFA" },
       { en: "Pink", vi: "Hồng", hex: "#F8A4B8" }, { en: "Yellow", vi: "Vàng", hex: "#F7DC6F" },
@@ -130,7 +130,7 @@ const FLOWERS = [
     id: "lily", basePrice: 42,
     name: { en: "Lilies", vi: "Hoa Ly" },
     description: { en: "Graceful & fragrant", vi: "Duyên dáng & thơm ngát" },
-    image: "https://images.unsplash.com/photo-1529685683091-88987b1e75e9?w=500&h=500&fit=crop",
+    emoji: "💐",
     colors: [
       { en: "White", vi: "Trắng", hex: "#FEFEFA" }, { en: "Stargazer Pink", vi: "Hồng Ly", hex: "#DB7093" },
       { en: "Orange", vi: "Cam", hex: "#ED8B00" }, { en: "Yellow", vi: "Vàng", hex: "#F7DC6F" },
@@ -331,22 +331,24 @@ function FlowerBuilder() {
         ))}
       </div>
 
-      {/* Step 1: Flowers with photos */}
+      {/* Step 1: Flowers — 3×2 grid */}
       {step >= 1 && (
         <div style={{ marginBottom: 48 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(170px, 1fr))", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, maxWidth: 720, margin: "0 auto" }} className="flower-grid">
             {FLOWERS.map((f) => (
-              <button key={f.id} onClick={() => { setSelFlower(f.id); setSelColor(null); setStep(2); }} style={{ background: selFlower === f.id ? "#3D2B1F" : "#FFFFFF", border: selFlower === f.id ? "1.5px solid #3D2B1F" : "1.5px solid #E8E0D8", padding: 0, cursor: "pointer", textAlign: "center", transition: "all 0.3s", borderRadius: 2, overflow: "hidden" }}
-                onMouseEnter={(e) => { if (selFlower !== f.id) e.currentTarget.style.borderColor = "#C4867A"; }} onMouseLeave={(e) => { if (selFlower !== f.id) e.currentTarget.style.borderColor = "#E8E0D8"; }}>
-                <div style={{ width: "100%", height: 160, overflow: "hidden", background: "#F5EDE6" }}>
-                  <img src={f.image} alt={t(f.name, lang)} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }}
-                    onMouseEnter={(e) => e.target.style.transform = "scale(1.08)"} onMouseLeave={(e) => e.target.style.transform = "scale(1)"} />
-                </div>
-                <div style={{ padding: "14px 10px 16px" }}>
-                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14.5, fontWeight: 600, color: selFlower === f.id ? "#FDF9F4" : "#3D2B1F", marginBottom: 4 }}>{t(f.name, lang)}</div>
-                  <div style={{ fontFamily: "'Lora', serif", fontSize: 11.5, color: selFlower === f.id ? "rgba(253,249,244,0.6)" : "#8A7A6D", marginBottom: 6 }}>{t(f.description, lang)}</div>
-                  <div style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontSize: 13, fontWeight: 700, color: selFlower === f.id ? "#C4A87C" : "#C4867A" }}>from ${f.basePrice}</div>
-                </div>
+              <button key={f.id} onClick={() => { setSelFlower(f.id); setSelColor(null); setStep(2); }} style={{
+                background: selFlower === f.id ? "#3D2B1F" : "#FFFFFF",
+                border: selFlower === f.id ? "1.5px solid #3D2B1F" : "1.5px solid #E8E0D8",
+                padding: "24px 14px 20px", cursor: "pointer", textAlign: "center",
+                transition: "all 0.3s", borderRadius: 2,
+              }}
+                onMouseEnter={(e) => { if (selFlower !== f.id) e.currentTarget.style.borderColor = "#C4867A"; }}
+                onMouseLeave={(e) => { if (selFlower !== f.id) e.currentTarget.style.borderColor = "#E8E0D8"; }}>
+                <div style={{ fontSize: 36, marginBottom: 10 }}>{f.emoji}</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, fontWeight: 600, color: selFlower === f.id ? "#FDF9F4" : "#3D2B1F", marginBottom: 4 }}>{t(f.name, lang)}</div>
+                <div style={{ fontFamily: "'Lora', serif", fontSize: 12, color: selFlower === f.id ? "rgba(253,249,244,0.6)" : "#8A7A6D", marginBottom: 8 }}>{t(f.description, lang)}</div>
+                <div style={{ fontFamily: "'Be Vietnam Pro', sans-serif", fontSize: 13, fontWeight: 700, color: selFlower === f.id ? "#C4A87C" : "#C4867A", marginBottom: 6 }}>from ${f.basePrice}</div>
+                <div style={{ fontFamily: "'Lora', serif", fontSize: 10, color: selFlower === f.id ? "rgba(253,249,244,0.35)" : "#C4B5A8", fontStyle: "italic" }}>{lang === "vi" ? "ảnh sẽ thay thế" : "photo to be replaced"}</div>
               </button>
             ))}
           </div>
@@ -402,8 +404,8 @@ function FlowerBuilder() {
           </div>
           {flower && (
             <div style={{ maxWidth: 520, margin: "0 auto", background: "#FFFFFF", border: "1.5px solid #E8E0D8", overflow: "hidden" }}>
-              <div style={{ width: "100%", height: 180, overflow: "hidden" }}>
-                <img src={flower.image} alt={t(flower.name, lang)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ width: "100%", height: 100, background: "linear-gradient(135deg, #F5EDE6, #EDE3D9)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 48 }}>
+                {flower.emoji}
               </div>
               <div style={{ padding: 32 }}>
                 <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: "#3D2B1F", marginBottom: 20, textAlign: "center" }}>{t(T.shop.summaryTitle, lang)}</h4>
@@ -579,6 +581,7 @@ export default function App() {
           .nav-desktop { display: none !important; }
           .nav-mobile { display: flex !important; }
           .story-grid { grid-template-columns: 1fr !important; }
+          .flower-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (min-width: 769px) { .nav-mobile { display: none !important; } }
       `}</style>
